@@ -9,7 +9,6 @@ Uma API simples para gerenciamento de filmes, permitindo listar, adicionar, atua
 - Remover filmes
 
 🚀 Tecnologias Utilizadas:
-- Node.js
 - Express
 
         *em breve pretendo mudar esse readme, apenas para demonstração por enquanto
