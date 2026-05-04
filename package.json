@@ -1,5 +1,5 @@
 {
-  "version" :"1" ,
+  "version" :"1.00" ,
   "type": "module",
   "main" : "./src/server.js",
   "scripts": {
