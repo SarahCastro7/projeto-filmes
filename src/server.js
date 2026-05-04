@@ -14,13 +14,3 @@ app.use('/filmes', routeFilmes);
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-//!!! Área de Retorno !!!
-const filmes = await getAllFilmes();
-console.log(filmes);
-
-const filme = await getFilmesById(3);
-console.log(filme);
-
-const newFilme = await createFilme("algum filme");
-console.log(newFilme);

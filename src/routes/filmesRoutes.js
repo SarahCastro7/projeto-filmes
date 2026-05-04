@@ -1,5 +1,5 @@
 import express from "express";
-import { filmesService } from "../services/filmes.service.js";
+import { filmesService } from "../services/filmesServices.js";
 
 const routeFilmes = express.Router();
 
@@ -36,7 +36,7 @@ routeFilmes.post("/", (req, res) => {
     }
 
     // Cria o objeto com os dados recebidos
-    const novoFilme = filmesService.create({
+    const novoFilme = filmesServicesService.create({
         nome: nome.trim(),
         categoria: categoria ? categoria.trim() : "Sem categoria"
     });
