@@ -1,8 +1,26 @@
 //aqui fica toda a logica de negócio, ou seja, tudo o que tem a ver com o banco de dados
 
 const filmes = [
-    { "id": 1, "titulo": "Bebe chefinho", "categoria": "animação infantil" },
-    { "id": 2, "titulo": "Se Nao Fosse Voce", "categoria": "comedia" },
-    { "id": 3, "titulo": "Ze Colmeia", "categoria": "animação infantil" },
-    { "id": 4, "titulo": "Scooby Doo", "categoria": "animação infantil" }
+    { "id": 1, "nome": "Minha Mãe é Uma Peça", "categoria" : "Comedia" },
+  { "id": 2, "nome": "Homem-Aranha: Longe de Casa","categoria" : "Ação/Ficção científica" },
+  { "id": 3, "nome": "Devoradores de Estrelas", "categoria" : "Ficção científica/Aventura" },
+    {"id" : 4 , "nome" : "Se Não Fosse Você", "categoria" : "Comedia/Romance"},
+    {"id" : 5 , "nome" : "Ze Colmeia", "categoria" : "animação infantil"},
+    {"id" : 6 , "nome": "Scooby Doo" , "categoria" : " Mistério/Animação infantil"},
+    {"id" : 7, "nome": "Náufrago" , "categoria" : "Aventura/Ação"} ,
+    {"id" : 8, "nome": "Alvin e os Esquilos" , "categoria" : " Infantil/Comédia"} ,
+    {"id" : 9, "nome": "Os Smurfs" , "categoria" : " Infantil/Comédia"},
+    {"id" : 10, "nome": "Hop: Rebelde sem Páscoa" , "categoria" : " Infantil/Comédia"},
+    {"id" : 11, "nome": "O Diabo Veste Prada" , "categoria" : "Comédia/Drama"},
+    {"id" : 12, "nome": "Legalmente Loira" , "categoria" : "Comedia/Romance"},
+    {"id" : 12, "nome": "Chicago" , "categoria" : "Musical/Crime"},
+    {"id" : 13, "nome": "Hairspray: Em Busca da Fama" , "categoria" : "Musical/Comédia"},
+     {"id" : 13, "nome": "Atração Mortal" , "categoria" : " Comédia/Crime"},
+     {"id" : 14, "nome": "Bottoms" , "categoria" : "Comédia"},
+     {"id" : 15, "nome": "Eu Vi o Brilho da TV" , "categoria" : "Drama/Terror Psicológico"},
+     {"id" : 16, "nome": "10 Coisas que Eu Odeio em Você" , "categoria" : "Comedia/Romance"},
+     {"id" : 17, "nome": "Grande Menina, Pequena Mulher" , "categoria" : "Comédia/Drama"},
+     {"id" : 18, "nome": "As Crônicas de Spiderwick" , "categoria" : "Infantil/Aventura"},
+     {"id" : 19, "nome": "O Diário da Princesa" , "categoria" : "Infantil/Comédia"},
+     {"id" : 20, "nome": "Abracadabra" , "categoria" : "Infantil/Comédia"}
 ]
