@@ -33,8 +33,8 @@ routeFilmes.post("/", (req, res) => {
 
     // Validação de conteúdo: verifica se é string e se não está vazia
     if (!nome || typeof nome !== "string" || nome.trim().length === 0) {
-        return res.status(400).json({ 
-            message: "O campo nome deve ser um texto válido e não pode estar vazio." 
+        return res.status(400).json({
+            message: "O campo nome deve ser um texto válido e não pode estar vazio."
         });
     }
 
@@ -55,8 +55,8 @@ routeFilmes.patch("/:id", (req, res) => {
 
     // Valida se chegou APENAS o campo "nome" no body
     if (bodyKeys.length !== 1 || !req.body.nome) {
-        return res.status(400).json({ 
-            message: "Para atualização parcial, envie apenas o campo 'nome'." 
+        return res.status(400).json({
+            message: "Para atualização parcial, envie apenas o campo 'nome'."
         });
     }
 
@@ -121,8 +121,8 @@ routeFilmes.delete("/:id", (req, res) => {
 
     // Mensagem de erro em JSON caso não encontre
     if (!removido) {
-        return res.status(404).json({ 
-            message: "Erro: Filme não encontrado para remoção." 
+        return res.status(404).json({
+            message: "Erro: Filme não encontrado para remoção."
         });
     }
 

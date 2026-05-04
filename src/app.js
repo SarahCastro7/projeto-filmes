@@ -7,7 +7,7 @@ async function readFilmes() {
     return filmes
 }
 
-async function writeFilmes (filmes) {
+async function writeFilmes(filmes) {
     const data = JSON.stringify(filmes, null, 2);
     await fs.writeFilmes("./filmes.json", data, "utf-8");
 }
@@ -25,7 +25,7 @@ async function getFilmesById(id) {
 async function createFilme(nome, categoria) {
     const filmes = await readFilmes();
     const newFilme = {
-        id:filmes.length > 0 ? filmes[filmes.length -1].id + 1 : 1, nome: nome, categoria: categoria
+        id: filmes.length > 0 ? filmes[filmes.length - 1].id + 1 : 1, nome: nome, categoria: categoria
     };
 
     filmes.push(newFilme);
@@ -34,20 +34,20 @@ async function createFilme(nome, categoria) {
 }
 
 async function updateFilmes(id, novoNome, novaCategoria) {
-  const filmes = await readFilmes();
-  const index = filmes.findIndex(item => item.id === Number(id));
-  
-  if(index === -1){
-    return null;
-  }
+    const filmes = await readFilmes();
+    const index = filmes.findIndex(item => item.id === Number(id));
 
-  filmes[index].nome = novoNome;
+    if (index === -1) {
+        return null;
+    }
 
-  filmes[index].categoria = novaCategoria;
-  
-await writeFilmes(filmes);
+    filmes[index].nome = novoNome;
 
-return filmes[index];
+    filmes[index].categoria = novaCategoria;
+
+    await writeFilmes(filmes);
+
+    return filmes[index];
 
 }
 
@@ -56,7 +56,7 @@ async function deleteFilme(id) {
 
     const index = filmes.findIndex(item => item.id === Number(id));
 
-    if(index=== -1) {
+    if (index === -1) {
         return false
     }
 
