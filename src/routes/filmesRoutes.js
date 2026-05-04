@@ -36,9 +36,9 @@ routeFilmes.post("/", (req, res) => {
     }
 
     // Cria o objeto com os dados recebidos
-    const novoFilme = filmesService.create({ 
-        nome: nome.trim(), 
-        categoria: categoria ? categoria.trim() : "Sem categoria" 
+    const novoFilme = filmesService.create({
+        nome: nome.trim(),
+        categoria: categoria ? categoria.trim() : "Sem categoria"
     });
 
     res.status(201).json(novoFilme);
@@ -80,9 +80,9 @@ routeFilmes.put("/:id", (req, res) => {
         return res.status(400).json({ message: "Nome e categoria são obrigatórios no PUT." });
     }
 
-    const filmeAtualizado = filmesService.updatePut(id, { 
-        nome: nome.trim(), 
-        categoria: categoria.trim() 
+    const filmeAtualizado = filmesService.updatePut(id, {
+        nome: nome.trim(),
+        categoria: categoria.trim()
     });
 
     if (!filmeAtualizado) {
