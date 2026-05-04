@@ -1,1 +1,26 @@
 import express from "express";
+import routeFilmes from "./routes/filmesRoutes.js";
+
+const app = express();
+const PORT = 3000;
+
+app.use(express.json());
+app.get('/' , (req,res) => {
+    res.send("src");
+});
+
+app.use('/filmes', routeFilmes);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+//!!! Área de Retorno !!!
+const filmes = await getAllFilmes();
+console.log(filmes);
+
+const filme = await getFilmesById(3);
+console.log(filme);
+
+const newFilme = await createFilme("algum filme");
+console.log(newFilme);

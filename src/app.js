@@ -1,6 +1,5 @@
 import fs from "fs/promises";
 
-import fs from "fs/promises";
 async function readFilmes() {
     const data = await fs.readFile("./filmes.json", "utf-8");
     const filmes = JSON.parse(data);
@@ -32,13 +31,3 @@ async function createFilme(nome, categoria) {
     await writeFilmes(filmes);
     return newFilme;
 }
-
-//!!! Área de Retorno !!!
-const filmes = await getAllFilmes();
-console.log(filmes);
-
-const filme = await getFilmesById(3);
-console.log(filme);
-
-const newFilme = await createFilme("algum filme");
-console.log(newFilme);
