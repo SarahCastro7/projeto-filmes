@@ -29,16 +29,17 @@ routeFilmes.get("/:id", (req, res) => {
 
 // POST - criar filme
 routeFilmes.post("/", (req, res) => {
-    const { nome } = req.body;
+    const { nome, categoria } = req.body; // Extrai os dois campos
 
-    // Validação de conteúdo: verifica se é string e se não está vazia
     if (!nome || typeof nome !== "string" || nome.trim().length === 0) {
-        return res.status(400).json({ 
-            message: "O campo nome deve ser um texto válido e não pode estar vazio." 
-        });
+        return res.status(400).json({ message: "O campo nome é obrigatório." });
     }
 
-    const novoFilme = filmesService.create({ nome: nome.trim() });
+    // Cria o objeto com os dados recebidos
+    const novoFilme = filmesService.create({
+        nome: nome.trim(),
+        categoria: categoria ? categoria.trim() : "Sem categoria"
+    });
 
     res.status(201).json(novoFilme);
 });
@@ -46,28 +47,24 @@ routeFilmes.post("/", (req, res) => {
 // PATCH - atualização parcial
 routeFilmes.patch("/:id", (req, res) => {
     const { id } = req.params;
+    const camposPermitidos = ["nome", "categoria"];
     const bodyKeys = Object.keys(req.body);
 
-    // Validação da estrutura do ID (header/params)
-    if (isNaN(id) || Number(id) <= 0) {
-        return res.status(400).json({ message: "Estrutura do ID inválida." });
+    // Valida se o body não está vazio
+    if (bodyKeys.length === 0) {
+        return res.status(400).json({ message: "Envie ao menos um campo para atualizar." });
     }
 
-    // Valida se chegou APENAS o campo "nome" no body
-    if (bodyKeys.length !== 1 || !req.body.nome) {
-        return res.status(400).json({ 
-            message: "Para atualização parcial, envie apenas o campo 'nome'." 
-        });
+    // Opcional: Valida se enviaram campos que não existem (ex: "preco")
+    const chavesInvalidas = bodyKeys.filter(key => !camposPermitidos.includes(key));
+    if (chavesInvalidas.length > 0) {
+        return res.status(400).json({ message: `Campos inválidos: ${chavesInvalidas.join(", ")}` });
     }
 
-    const { nome } = req.body;
-
-    const filmeAtualizado = filmesService.updatePatch(id, nome);
+    const filmeAtualizado = filmesService.updatePatch(id, req.body);
 
     if (!filmeAtualizado) {
-        return res.status(404).json({
-            message: "Filme não encontrado, não foi possível atualizar.",
-        });
+        return res.status(404).json({ message: "Filme não encontrado." });
     }
 
     res.json(filmeAtualizado);
@@ -76,33 +73,20 @@ routeFilmes.patch("/:id", (req, res) => {
 // PUT - substituição completa
 routeFilmes.put("/:id", (req, res) => {
     const { id } = req.params;
-    const { nome } = req.body;
+    const { nome, categoria } = req.body;
 
-    // Validação da estrutura do ID
-    if (isNaN(id) || Number(id) <= 0) {
-        return res.status(400).json({ message: "Estrutura do ID inválida." });
+    // Valida se os campos obrigatórios vieram
+    if (!nome || !categoria) {
+        return res.status(400).json({ message: "Nome e categoria são obrigatórios no PUT." });
     }
 
-    // Validação do campo obrigatório
-    if (!nome) {
-        return res.status(400).json({
-            message: "Dados insuficientes, o campo nome é obrigatório.",
-        });
-    }
-
-    // Validação extra do conteúdo (tipo e conteúdo real)
-    if (typeof nome !== "string" || nome.trim().length === 0) {
-        return res.status(400).json({
-            message: "O conteúdo do campo nome deve ser um texto válido.",
-        });
-    }
-
-    const filmeAtualizado = filmesService.updatePut(id, { nome: nome.trim() });
+    const filmeAtualizado = filmesService.updatePut(id, {
+        nome: nome.trim(),
+        categoria: categoria.trim()
+    });
 
     if (!filmeAtualizado) {
-        return res.status(404).json({
-            message: "Filme não encontrado.",
-        });
+        return res.status(404).json({ message: "Filme não encontrado." });
     }
 
     res.json(filmeAtualizado);
@@ -121,8 +105,8 @@ routeFilmes.delete("/:id", (req, res) => {
 
     // Mensagem de erro em JSON caso não encontre
     if (!removido) {
-        return res.status(404).json({ 
-            message: "Erro: Filme não encontrado para remoção." 
+        return res.status(404).json({
+            message: "Erro: Filme não encontrado para remoção."
         });
     }
 
