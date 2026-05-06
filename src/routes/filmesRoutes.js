@@ -1,16 +1,17 @@
 import express from "express";
 import { filmesService } from "../services/filmesServices.js";
 
+
 const routeFilmes = express.Router();
 
 // GET - listar todos os filmes
-routeFilmes.get("/", (req, res) => {
-    const filmes = filmesService.getAll();
+routeFilmes.get("/", async (req, res) => {
+    const filmes = await filmesService.getAll();
     res.json(filmes);
 });
 
 // GET por ID
-routeFilmes.get("/:id", (req, res) => {
+routeFilmes.get("/:id", async (req, res) => {
     const { id } = req.params;
 
     // Validação: verifica se é número e se é positivo
@@ -18,7 +19,7 @@ routeFilmes.get("/:id", (req, res) => {
         return res.status(400).json({ message: "ID inválido. Deve ser um número positivo." });
     }
 
-    const filme = filmesService.getById(id);
+    const filme = await filmesService.getById(id);
 
     if (!filme) {
         return res.status(404).json({ message: "Filme não encontrado." });
@@ -28,7 +29,7 @@ routeFilmes.get("/:id", (req, res) => {
 });
 
 // POST - criar filme
-routeFilmes.post("/", (req, res) => {
+routeFilmes.post("/", async (req, res) => {
     const { nome, categoria } = req.body; // Extrai os dois campos
 
     if (!nome || typeof nome !== "string" || nome.trim().length === 0) {
@@ -36,7 +37,7 @@ routeFilmes.post("/", (req, res) => {
     }
 
     // Cria o objeto com os dados recebidos
-    const novoFilme = filmesServicesService.create({
+    const novoFilme = await filmesService.createFilme({
         nome: nome.trim(),
         categoria: categoria ? categoria.trim() : "Sem categoria"
     });
@@ -45,7 +46,7 @@ routeFilmes.post("/", (req, res) => {
 });
 
 // PATCH - atualização parcial
-routeFilmes.patch("/:id", (req, res) => {
+routeFilmes.patch("/:id", async (req, res) => {
     const { id } = req.params;
     const camposPermitidos = ["nome", "categoria"];
     const bodyKeys = Object.keys(req.body);
@@ -61,7 +62,7 @@ routeFilmes.patch("/:id", (req, res) => {
         return res.status(400).json({ message: `Campos inválidos: ${chavesInvalidas.join(", ")}` });
     }
 
-    const filmeAtualizado = filmesService.updatePatch(id, req.body);
+    const filmeAtualizado = await filmesService.updateFilme(id, req.body);
 
     if (!filmeAtualizado) {
         return res.status(404).json({ message: "Filme não encontrado." });
@@ -71,7 +72,7 @@ routeFilmes.patch("/:id", (req, res) => {
 });
 
 // PUT - substituição completa
-routeFilmes.put("/:id", (req, res) => {
+routeFilmes.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { nome, categoria } = req.body;
 
@@ -80,7 +81,7 @@ routeFilmes.put("/:id", (req, res) => {
         return res.status(400).json({ message: "Nome e categoria são obrigatórios no PUT." });
     }
 
-    const filmeAtualizado = filmesService.updatePut(id, {
+    const filmeAtualizado = await filmesService.updateFilme(id, {
         nome: nome.trim(),
         categoria: categoria.trim()
     });
@@ -93,7 +94,7 @@ routeFilmes.put("/:id", (req, res) => {
 });
 
 // DELETE
-routeFilmes.delete("/:id", (req, res) => {
+routeFilmes.delete("/:id", async (req, res) => {
     const { id } = req.params;
 
     // Validação da estrutura do ID
@@ -101,7 +102,7 @@ routeFilmes.delete("/:id", (req, res) => {
         return res.status(400).json({ message: "ID inválido para exclusão." });
     }
 
-    const removido = filmesService.delete(id);
+    const removido = await filmesService.deleteFilme(id);
 
     // Mensagem de erro em JSON caso não encontre
     if (!removido) {

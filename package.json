@@ -1,10 +1,9 @@
 {
   "version" :"1.00" ,
   "type": "module",
-  "main" : "./src/server.js",
   "scripts": {
     "start" : "node app.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch ./src/server.js"
   },
   "dependencies": {
     "express": "^5.2.1"

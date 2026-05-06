@@ -23,7 +23,7 @@ class FilmesService {
         await writeFilmes(filmes);
         return newFilme;
     }
-
+//criar o put
     async updateFilme(id, novoNome, novaCategoria) {
         const filmes = await readFilmes() || [];
         const index = filmes.findIndex(item => item.id === Number(id));
